@@ -28,10 +28,11 @@ def input_num():
 
 def poly_info(num):
     frac = Fraction(num)
+    n    = frac.numerator   #分子
 
-    print("正\t" + num + "\t角形")
-    print("頂点\t" + str(frac.numerator) + "\t個")
-    print("内角約\t" + str(180*(float(num)-2.0)/float(num)) + "\t度")
+    print("正\t"      + num                                            + "\t角形")
+    print("頂点\t"    + str(n)                                         + "\t個")
+    print("内角約\t"  + str( 180 * ( float(num) - 2.0 ) / float(num) ) + "\t度")
 
 def poly_draw(num):
     frac = Fraction(num)
@@ -46,17 +47,25 @@ def poly_draw(num):
     # 直線の描画
     # draw.line([(0,1024), (1024,0)], fill = (0,0,255), width = 5)
 
+    # 円の中心と円周の半径
+    cx = img.width  * 0.5
+    cy = img.height * 0.5
+    if( img.height < img.width ):
+        r = img.height * 0.25
+    else:
+        r = img.width  * 0.25
+
     # 円周上に等間隔のn個の点をm個飛ばしてで打つ
     xy = []
-    for i in range(n+1):
-        theta = 360/n
+    for i in range( n + 1 ):
+        theta = 360 / n
         # print(str((i*m)%n))
-        xy.append(img.width/2 + (img.width/4) * math.cos((i*m)%n * theta * math.pi / 180))  #x
-        xy.append(img.height/2 + (img.height/4) * math.sin((i*m)%n * theta * math.pi / 180)) #y
+        xy.append(cx + r * math.cos( ( i * m ) % n * theta * math.pi / 180 ) )  #x
+        xy.append(cy + r * math.sin( ( i * m ) % n * theta * math.pi / 180 ) )  #y
 
     # draw.point(xy, fill=(255,0,0))
     # 点と点の間を線で結んでいく
-    draw.line(xy, fill=(0,0,255), width= 1 , joint="curve")
+    draw.line( xy , fill = ( 0 , 0 , 255 ) , width = 1 , joint = "curve" )
 
     # 画像の保存
     img.save("image.png")
