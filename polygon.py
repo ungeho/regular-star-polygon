@@ -65,7 +65,7 @@ def main():
 
     # draw.point(xy, fill=(255,0,0))
     # 点と点の間を線で結んでいく
-    draw.line(xy, fill=(0,0,255), width= 5 , joint="curve")
+    draw.line(xy, fill=(0,0,255), width= 1 , joint="curve")
 
     # 画像の保存
     img.save("image.png")
