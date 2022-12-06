@@ -55,6 +55,7 @@ def main():
     # 直線の描画
     # draw.line([(0,1024), (1024,0)], fill = (0,0,255), width = 5)
 
+    # 円周上に等間隔のn個の点をm個飛ばしてで打つ
     xy = []
     for i in range(n+1):
         theta = 360/n
@@ -62,7 +63,8 @@ def main():
         xy.append(img.width/2 + (img.width/4) * math.cos((i*m)%n * theta * math.pi / 180))  #x
         xy.append(img.height/2 + (img.height/4) * math.sin((i*m)%n * theta * math.pi / 180)) #y
 
-    draw.point(xy, fill=(255,0,0))
+    # draw.point(xy, fill=(255,0,0))
+    # 点と点の間を線で結んでいく
     draw.line(xy, fill=(0,0,255), width= 5 , joint="curve")
 
     # 画像の保存
