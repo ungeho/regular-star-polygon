@@ -33,16 +33,7 @@ def poly_info(num):
     print("頂点\t" + str(frac.numerator) + "\t個")
     print("内角約\t" + str(180*(float(num)-2.0)/float(num)) + "\t度")
 
-
-# 正n/m角形
-# 1. 有理数（浮動小数点数ではなく文字列で受け取る）を分数の形に変換する
-# 2.  n/m > 2 であるかの判定
-# 3. 円周上に等間隔のn個の点を打つ
-# 4. 今いる点とm個先の点を線で結ぶ（n回繰り返す）
-def main():
-    num = input_num()
-    poly_info(num)
-
+def poly_draw(num):
     frac = Fraction(num)
     n    = frac.numerator   #分子
     m    = frac.denominator #分母
@@ -72,6 +63,19 @@ def main():
 
     # 画像の表示
     img.show()
+
+
+# 正n/m角形
+# 1. 有理数（浮動小数点数ではなく文字列で受け取る）を分数の形に変換する
+# 2.  n/m > 2 であるかの判定
+# 3. 円周上に等間隔のn個の点を打つ
+# 4. 今いる点とm個先の点を線で結ぶ（n回繰り返す）
+def main():
+    num = input_num()
+    poly_info(num)
+    poly_draw(num)
+
+
 
 if __name__ == "__main__":
     main()
