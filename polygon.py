@@ -51,9 +51,9 @@ def poly_draw(num):
     cx = img.width  * 0.5
     cy = img.height * 0.5
     if( img.height < img.width ):
-        r = img.height * 0.25
+        r = img.height * 0.375
     else:
-        r = img.width  * 0.25
+        r = img.width  * 0.375
 
     # 円周上に等間隔のn個の点をm個飛ばしてで打つ
     xy = []
