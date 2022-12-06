@@ -55,7 +55,7 @@ def poly_draw(num):
     else:
         r = img.width  * 0.375
 
-    # 円周上に等間隔のn個の点をm個飛ばしてで打つ
+    # 円周上に等間隔のn個の点を、m個隣から打っていく
     xy = []
     for i in range( n + 1 ):
         theta = 360 / n
