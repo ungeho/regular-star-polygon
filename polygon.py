@@ -2,6 +2,7 @@ import os
 from fractions import Fraction
 from PIL import Image, ImageDraw
 import math
+import re
 
 def is_num(s):
     try:
@@ -14,31 +15,40 @@ def is_num(s):
 def input_num():
     os.system('cls')
     while True:
-        num = input("2より大きい有理数を入力してください。(n/m>2):")
+        num = input("2より大きい有理数(d>2)\nまたは、整数/整数の形で分数を入力してください。(n/m>2,m>0):")
         # print(type(num))
         if not(is_num(num)):
-            os.system('cls')
-            print("※数字を入力して下さい。")
+            if re.match("^\d+?/\d+?$",num) != None :
+                try:
+                    Fraction(num)
+                except ZeroDivisionError:
+                    os.system('cls')
+                    print("※分母は0より大きい値を入力してください。(m>0)")
+                else:
+                    break
+            elif re.match("^.+?/.+?$",num) != None :
+                os.system('cls')
+                print("※分子と分母は整数で入力してください。")
+            else :
+                os.system('cls')
+                print("※数字を入力して下さい。")
         elif float(num) <= 2.0 :
             os.system('cls')
             print("※2より大きい値を入力してください。")
         else :
             break
-    return num
-
-def poly_info(num):
-    frac = Fraction(num)
-    n    = frac.numerator   #分子
-
-    print("正\t"      + num                                            + "\t角形")
-    print("頂点\t"    + str(n)                                         + "\t個")
-    print("内角約\t"  + str( 180 * ( float(num) - 2.0 ) / float(num) ) + "\t度")
-
-def poly_draw(num):
     frac = Fraction(num)
     n    = frac.numerator   #分子
     m    = frac.denominator #分母
+    return  n,m
 
+def poly_info(n,m):
+    num = n/m
+    print("正\t"      + str(num) + "(" + str(n)  + "/" + str(m) +")"   + "\t角形")
+    print("頂点\t"    + str(n)                                         + "\t個")
+    print("内角約\t"  + str( 180 * ( float(num) - 2.0 ) / float(num) ) + "\t度")
+
+def poly_draw(n,m):
     # カラーの画像データ（Imageオブジェクト）の作成
     img = Image.new("RGB", (1024,1024),(255,255,255))
     # ImageDrawオブジェクトの作成
@@ -80,9 +90,9 @@ def poly_draw(num):
 # 3. 円周上に等間隔のn個の点を打つ
 # 4. 今いる点とm個先の点を線で結ぶ（n回繰り返す）
 def main():
-    num = input_num()
-    poly_info(num)
-    poly_draw(num)
+    n,m = input_num()
+    poly_info(n,m)
+    poly_draw(n,m)
 
 
 
