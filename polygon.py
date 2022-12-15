@@ -25,7 +25,14 @@ def input_num():
                     os.system('cls')
                     print("※分母は0より大きい値を入力してください。(m>0)")
                 else:
-                    break
+                    frac = Fraction(num)
+                    n    = frac.numerator   #分子
+                    m    = frac.denominator #分母
+                    if n / m <= 2.0 :
+                        os.system('cls')
+                        print("※2より大きい値を入力してください。")
+                    else :
+                        break
             elif re.match("^.+?/.+?$",num) != None :
                 os.system('cls')
                 print("※分子と分母は整数で入力してください。")
@@ -57,6 +64,13 @@ def poly_draw(n,m):
     # 直線の描画
     # draw.line([(0,1024), (1024,0)], fill = (0,0,255), width = 5)
 
+    # 最初の点の角度
+    if( n == 4):
+        first_ang = -45
+    else:
+        first_ang = -90
+
+
     # 円の中心と円周の半径
     cx = img.width  * 0.5
     cy = img.height * 0.5
@@ -70,8 +84,8 @@ def poly_draw(n,m):
     for i in range( n + 1 ):
         theta = 360 / n
         # print(str((i*m)%n))
-        xy.append(cx + r * math.cos( ( i * m ) % n * theta * math.pi / 180 ) )  #x
-        xy.append(cy + r * math.sin( ( i * m ) % n * theta * math.pi / 180 ) )  #y
+        xy.append(cx + r * math.cos( ( first_ang + ( i * m ) % n * theta ) * math.pi / 180))  #x
+        xy.append(cy + r * math.sin( ( first_ang + ( i * m ) % n * theta ) * math.pi / 180))  #y
 
     # draw.point(xy, fill=(255,0,0))
     # 点と点の間を線で結んでいく
